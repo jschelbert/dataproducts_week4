@@ -62,7 +62,9 @@ shinyUI(fluidPage(theme = shinytheme("united"),
             p("All example data is provided by the", code("fpp"), "package. More precisely, the sources of the data are"),
             tags$li(strong("Beer production:"),"Australian Bureau of Statistics. Cat. 8301.0.55.001."),
             tags$li(strong("Anti-diabetic drug sales:"), "Medicare Australia"),
-            tags$li(strong("Electrical equipment:"), "Eurostat. data.is/y6dO8i")
+            tags$li(strong("Electrical equipment:"), "Eurostat. data.is/y6dO8i"),
+            hr(),
+            p("Sources for the app can be found on the", a(href="https://github.com/jschelbert/dataproducts_week4", "github page"), ".")
         )
     )
 ))
