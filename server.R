@@ -10,6 +10,7 @@
 library(shiny)
 library(dplyr)
 library(ggplot2)
+library(plotly)
 library(forecast)
 library(lubridate)
 library(fpp)
@@ -58,10 +59,10 @@ shinyServer(function(input, output) {
         accuracy(computeforecast(),selectts())
     })
 
-    output$ForecastPlot <- renderPlot({
+    output$ForecastPlot <- renderPlotly({
         fcast <- computeforecast()
         g <- autoplot(fcast)
-        plot(g)
+        ggplotly(g)
     })
 
     output$ui <- renderUI({

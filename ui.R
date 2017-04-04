@@ -9,6 +9,8 @@
 
 library(shiny)
 library(shinythemes)
+library(plotly)
+
 
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(theme = shinytheme("united"),
@@ -53,11 +55,21 @@ shinyUI(fluidPage(theme = shinytheme("united"),
 
         # Show a plot of the generated distribution
         mainPanel(
+          h3("Overview"),
             p("This shiny app enables the user to interactively try out some of R's forecasting models.",
               "Choose from three different academic data sets and eight different forecasting techniques.",
-              "In addition, you can adjust the horizon to be forecasted and the year the forecast should start."),
+              "In addition, you can adjust the horizon to be forecasted and the year the forecast should start.",
+              "The forecasting techniques heavily rely on the", code("forecast"), "and", code("fpp"), "package.",
+              "A very nice starting point on this topic is given in the", a(href="https://www.otexts.org/fpp", "online book"), "by Rob J Hyndman and George Athanasopoulos."),
             hr(),
-            plotOutput("ForecastPlot"),
+            plotlyOutput("ForecastPlot"),
+            hr(),
+            h3("Explanation"),
+            p("In the above figure the time series (black line) and the the computed forecast (blue) is shown.", 
+              "Solid blue line indicates the actual forecasted value while blue areas indicate the 80% and 95% confidence intervals.",
+              em("Note that confidence intervals are not computed for the neural net forecasting technique.")),
+            p("Unfortunately, the current", code("plotly"), "package seems to render both 80% and 95% confidence interval in the same color.",
+              "Hovering with the mouse will indicate whether the area belongs to one or the other."),
             hr(),
             p("All example data is provided by the", code("fpp"), "package. More precisely, the sources of the data are"),
             tags$li(strong("Beer production:"),"Australian Bureau of Statistics. Cat. 8301.0.55.001."),
