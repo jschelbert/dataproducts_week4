@@ -1,0 +1,70 @@
+---
+title: "An overview of some forecasting methods"
+subtitle: "Assignment for Developing Data Products - Week 4"
+author: "Jakob Schelbert"
+date: "6. April 2017"
+output: 
+  ioslides_presentation:
+    widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r load_packages, echo=FALSE, warning=FALSE}
+suppressPackageStartupMessages({
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(forecast)
+library(lubridate)
+library(fpp)
+})
+```
+
+
+## Introduction
+Forecasting has been an essential task in business operations and has become even more important in today's fast-changing times.
+
+In order to understand the behavior of different traditional and more advanced forecasting techniques it is good starting point for the endusers to try them out directly.
+
+This app allows the interactive assesment of eight different forecasting techniques for three different academic data sets.
+
+
+## Background
+A very nice starting point on topic of forecasting is given in the [online book](https://www.otexts.org/fpp") by Rob J Hyndman and George Athanasopoulos which also has it's own **R** package `fpp`.
+In the app the user can choose from the following techniques that rely on the `forecast` and `fpp` packages:
+
+* [Naiive](https://www.otexts.org/fpp/2/3)
+* [Mean](https://www.otexts.org/fpp/2/3)
+* [Drift method](https://www.otexts.org/fpp/2/3)
+* [Seasonal naiive](https://www.otexts.org/fpp/2/3)
+* [Exponential smoothing](https://www.otexts.org/fpp/7/1)
+* [ARIMA](https://www.otexts.org/fpp/8)
+* [ETS](https://www.otexts.org/fpp/7/7)
+* [Neural net](https://www.otexts.org/fpp/9/3)
+
+
+## Explanation of user interface
+
+### Left side - Adjustments
+On the left side the user can choose from three different data sets as well as selecting the forecasting technique.
+Additionally, the horizon to forecast and the starting point of the forecast can be selected.
+Notice that the years are automatically adjusted depending on the selected data set.
+
+### Right side - Resulting output
+The right side shows some explanatory text and the final result wich consists of the chosen time series (black) and the computed forecast (blue).
+For most (except neural net) also the confidence intervals of the forecast are given.
+
+One can observe that with dates farther in the future also the confidence intervals are increasing.
+
+## Example output
+```{r example_output, echo=FALSE, fig.align='center', fig.cap="This is an example of the output using the automatic ARIMA forecasting method on the *Anti-diabetic drug sales* data set."}
+drugsdata <- fpp::a10
+tswindow <- window(drugsdata, end = 2005)
+fcast <- forecast(auto.arima(tswindow), h = 30)
+g <- autoplot(fcast)
+ggplotly(g)
+```
+
